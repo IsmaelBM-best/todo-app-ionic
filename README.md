@@ -1,36 +1,58 @@
-# To-Do App con Ionic & Firebase (Prueba Técnica)
+To-Do App con Ionic y Firebase (Prueba Tecnica)
+Aplicacion de lista de tareas mejorada con categorizacion dinamica y control remoto de funcionalidades (Feature Flags).
 
-Aplicación de lista de tareas mejorada con categorización dinámica y control remoto de funcionalidades.
+Funcionalidades Implementadas
+To-Do List: Gestion completa de tareas (Agregar, completar y eliminar).
 
-## 🚀 Funcionalidades Implementadas
-- **To-Do List:** Agregar, completar y eliminar tareas.
-- **Categorización:** Crear, editar y eliminar categorías personalizadas.
-- **Filtrado:** Visualización de tareas por categoría seleccionada.
-- **Firebase Remote Config:** Feature Flag para habilitar/deshabilitar la gestión de categorías en tiempo real.
+Categorizacion: Sistema para crear, editar y eliminar categorias personalizadas.
 
-## 🛠️ Requisitos e Instalación
-1. Clonar el repositorio.
-2. Instalar dependencias: `npm install`.
-3. Instalar Ionic CLI: `npm install -g @ionic/cli`.
-4. Para compilar en Android:
-   - Configurar Java 17 y Android SDK.
-   - Gradle 8.14 (configurado en el sistema).
-   - Comando para producción: `cordova build android --release`. (OJO esto solo dejara un archivo .aab osea el paquete de publicacion)
-   - Comando para APK: `cordova build android --debug`
+Filtrado: Visualizacion segmentada de tareas por la categoria seleccionada.
 
-## 📈 Respuestas a la Evaluación Técnica
+Firebase Remote Config: Implementacion de un Feature Flag para habilitar o deshabilitar la gestion de categorias en tiempo real desde la consola de Firebase.
 
-### 1. Principales desafíos
-Al principio me parecio muy complicado la validacion desde firebase que en este caso la inyecte en las categorias 
-(crear, editar, eliminar y filtrar tareas por categoria), ya que era algo que no conocia, tambien la configuración técnica
-del entorno de compilación (específicamente la compatibilidad entre Gradle y Java) para asegurar que el APK se generara correctamente 
-con todas las dependencias de Firebase. Pero el proyecto en realidad fue un proceso muy divertido en el que me encanto participar.
+Requisitos e Instalacion
+Clonar el repositorio.
 
-### 2. Técnicas de optimización de rendimiento
-- **Lazy Loading:** Los módulos de la aplicación se cargan bajo demanda para acelerar el inicio.
-- **Firebase Remote Config:** Permite gestionar el estado de la aplicación sin realizar peticiones pesadas a bases de datos en cada interacción.
-- **Estrategia de Detección de Cambios:** Se optimizó la renderización de la lista de tareas para evitar repintados innecesarios en el DOM.
+Instalar dependencias de Node: npm install.
 
-### 3. Calidad y mantenibilidad
-Se utilizó una arquitectura limpia basada en **Servicios de Angular** para separar la lógica de negocio (Firebase/Almacenamiento) de la interfaz de usuario.
-El código está tipado con **TypeScript** para prevenir errores en tiempo de ejecución y facilitar futuras escalabilidades.
+Instalar Ionic CLI de forma global: npm install -g @ionic/cli.
+
+Ejecutar en navegador (desarrollo): ionic serve.
+
+Guia de Compilacion y Ejecucion en Dispositivos
+Android
+Para generar los archivos ejecutables se requiere Java 17, Android SDK y Gradle 8.14 configurados en las variables de entorno del sistema.
+
+Para generar el APK de prueba (Recomendado para evaluacion):
+
+Bash
+cordova build android --debug
+El archivo se generara en: platforms/android/app/build/outputs/apk/debug/app-debug.apk
+
+Para generar el paquete de produccion (AAB):
+
+Bash
+cordova build android --release
+El archivo se generara en: platforms/android/app/build/outputs/bundle/release/app-release.aab
+
+iOS
+La estructura base del proyecto ha sido configurada y preparada para plataformas iOS.
+
+Agregar plataforma: cordova platform add ios.
+
+Preparar el proyecto: cordova prepare ios.
+Nota: La exportacion del archivo final (.IPA) requiere obligatoriamente de un entorno macOS con Xcode instalado para la firma digital del paquete. El codigo fuente incluido es plenamente compatible y esta listo para ser compilado en dicha plataforma.
+
+Respuestas a la Evaluacion Tecnica
+1. Principales desafios
+Un desafio importante fue la integracion de Firebase Remote Config para gestionar la visibilidad de las categorias, ya que era una herramienta con la que no habia interactuado previamente. Lograr que la interfaz reaccionara en tiempo real al Feature Flag fue un proceso de aprendizaje muy enriquecedor. Asimismo, la configuracion tecnica del entorno (ajustes de compatibilidad entre Gradle, Java y el SDK de Android) fue clave para asegurar un flujo de compilacion exitoso y estable.
+
+2. Tecnicas de optimizacion de rendimiento
+Lazy Loading: Se implemento la carga de modulos bajo demanda para minimizar el tiempo de carga inicial de la aplicacion.
+
+Gestion Eficiente de Remote Config: Se optimizaron las peticiones al servicio de Firebase para evitar sobrecarga en la red y asegurar la disponibilidad de las configuraciones de forma asincrona.
+
+Estrategia de Deteccion de Cambios: Se utilizo la logica de Angular para optimizar la renderizacion de la lista de tareas, evitando procesos innecesarios en el DOM al realizar filtros o actualizaciones.
+
+3. Calidad y mantenibilidad del codigo
+Se utilizo una arquitectura modular basada en Servicios de Angular, lo que permite desacoplar la logica de negocio y el manejo de datos de la capa de presentacion. El uso de TypeScript asegura un tipado fuerte, facilitando la deteccion de errores en desarrollo y garantizando que el codigo sea escalable y facil de mantener por otros desarrolladores.
