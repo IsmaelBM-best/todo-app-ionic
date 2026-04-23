@@ -15,7 +15,8 @@ Aplicación de lista de tareas mejorada con categorización dinámica y control 
 4. Para compilar en Android:
    - Configurar Java 17 y Android SDK.
    - Gradle 8.14 (configurado en el sistema).
-   - Comando: `cordova build android --release`.
+   - Comando para producción: `cordova build android --release`. (OJO esto solo dejara un archivo .aab osea el paquete de publicacion)
+   - Comando para APK: `cordova build android --debug`
 
 ## 📈 Respuestas a la Evaluación Técnica
 
