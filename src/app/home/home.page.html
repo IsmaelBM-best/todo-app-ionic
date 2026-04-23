@@ -49,6 +49,30 @@
     </div>
   </div>
 
+  <!-- FILTER SECTION -->
+  <div *ngIf="showCategories && categories.length > 0" class="filter-section">
+    <div class="filter-header">
+      <span class="filter-label">Filtrar por:</span>
+    </div>
+    <div class="filter-buttons">
+      <button 
+        class="filter-btn" 
+        [class.active]="filterCategoryId === null"
+        (click)="setFilterCategory(null)">
+        Ver todas
+      </button>
+      <button 
+        *ngFor="let cat of categories; trackBy: trackById"
+        class="filter-btn category-filter" 
+        [class.active]="filterCategoryId === cat.id"
+        [style.border-color]="filterCategoryId === cat.id ? cat.color : '#333'"
+        (click)="setFilterCategory(cat.id)">
+        <span class="filter-dot" [style.background-color]="cat.color"></span>
+        {{ cat.name }}
+      </button>
+    </div>
+  </div>
+
   <!-- CATEGORÍAS SECTION -->
   <div *ngIf="showCategories" class="section">
     <div class="section-header" (click)="toggleSection('categories')">

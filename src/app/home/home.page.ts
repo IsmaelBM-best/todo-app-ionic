@@ -58,6 +58,8 @@ export class HomePage {
     completed: false
   };
 
+  filterCategoryId: number | null = null;
+
   constructor(
     private taskService: TaskService,
     private rc: RemoteConfigService,
@@ -138,6 +140,14 @@ export class HomePage {
     this.expandedSections[section as keyof typeof this.expandedSections] = !this.expandedSections[section as keyof typeof this.expandedSections];
   }
 
+  setFilterCategory(categoryId: number | null) {
+    this.filterCategoryId = categoryId;
+  }
+
+  getTasksCountByCategory(categoryId: number): number {
+    return this.tasks.filter(t => t.categoryId === categoryId).length;
+  }
+
   getCategoryName(categoryId: number): string {
     const cat = this.categories.find(c => c.id === categoryId);
     return cat ? cat.name : '';
@@ -168,8 +178,21 @@ export class HomePage {
     return item.id;
   }
 
-  get pendingTasks() { return this.tasks.filter(t => !t.completed); }
-  get completedTasks() { return this.tasks.filter(t => t.completed); }
+  get pendingTasks() { 
+    let filtered = this.tasks.filter(t => !t.completed);
+    if (this.filterCategoryId !== null) {
+      filtered = filtered.filter(t => t.categoryId === this.filterCategoryId);
+    }
+    return filtered;
+  }
+
+  get completedTasks() { 
+    let filtered = this.tasks.filter(t => t.completed);
+    if (this.filterCategoryId !== null) {
+      filtered = filtered.filter(t => t.categoryId === this.filterCategoryId);
+    }
+    return filtered;
+  }
 
   getCategoryColor(categoryId: number): string {
     const cat = this.categoryService.getCategoryById(categoryId);
