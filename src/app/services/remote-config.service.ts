@@ -9,6 +9,7 @@ export class RemoteConfigService {
   constructor(private remoteConfig: RemoteConfig) {}
 
   async init() {
+    this.remoteConfig.settings.minimumFetchIntervalMillis = 0; 
     await fetchAndActivate(this.remoteConfig);
   }
 

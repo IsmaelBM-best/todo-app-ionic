@@ -86,8 +86,13 @@ export class HomePage {
     });
   }
 
-  ngOnInit() {
-    this.showCategories = this.rc.getFlag();
+  async ngOnInit() {
+    // IMPORTANTE: Primero esperamos a que Firebase traiga los datos
+    await this.rc.init(); 
+    
+    // Ahora que ya terminó el init, pedimos el valor
+    this.showCategories = this.rc.getFlag(); 
+    
     this.loadTasks();
     this.loadCategories();
   }
